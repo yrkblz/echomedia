@@ -1,0 +1,652 @@
+/* ============================================================
+   ECHO MARKETING STUDIO — Main Stylesheet
+   Styl: minimalistyczny, czysty, Apple-inspired
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+/* ─── TOKENY ─── */
+:root {
+  --ink:          #111111;
+  --ink-mid:      #444444;
+  --ink-soft:     #888888;
+  --cream:        #f7f2ea;
+  --cream-card:   #f2ead8;
+  --beige-btn:    #e5d8b4;
+  --yellow-hi:    #f5c842;
+  --note-green:   #3d5c3a;
+  --clip:         #9a9a9a;
+  --white:        #ffffff;
+  --radius:       10px;
+  --radius-lg:    20px;
+  --shadow:       0 2px 16px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,0.16);
+  --ease:         0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+img  { display: block; max-width: 100%; }
+
+body {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   NAV — statyczny, na górze każdej sekcji
+   ============================================================ */
+.section-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 0 0;
+}
+
+.section-nav a {
+  display: inline-block;
+  padding: 7px 20px;
+  border: 1.5px solid rgba(0,0,0,0.25);
+  border-radius: 100px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 0.80rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: var(--ease);
+}
+
+.section-nav a:hover,
+.section-nav a.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* ============================================================
+   SEKCJA — wspólna baza
+   ============================================================ */
+.section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tło: niebo z chmurami — tylko HOME */
+#home {
+  background: url('img/backgroung.svg') center top / cover no-repeat;
+}
+
+/* Tło sekcji offer i contact: gradient nieba */
+#offer,
+#contact {
+  background:
+    radial-gradient(ellipse 130% 70% at 15% 25%, rgba(255,255,255,0.60) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 60% at 80% 15%, rgba(255,255,255,0.50) 0%, transparent 50%),
+    radial-gradient(ellipse 110% 80% at 50% 75%, rgba(255,255,255,0.40) 0%, transparent 60%),
+    linear-gradient(175deg, #c2d9ee 0%, #d8eaf7 45%, #c5dcee 75%, #b5cfe6 100%);
+}
+
+/* ============================================================
+   SECTION 1 — HOME / HERO
+   ============================================================ */
+
+/* Centrum hero: logo + zdjęcia */
+.hero-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 20px 40px 60px;
+}
+
+/* ── Logo ── */
+.hero-logo {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+}
+
+.hero-logo img {
+  width: clamp(300px, 60vw, 680px);
+  height: auto;
+  /* Logo ma tło białe — usuwamy białe */
+  mix-blend-mode: multiply;
+}
+
+/* ══════════════════════════════════════════════
+   LEWA STRONA — 1 duża karta + 3 małe polaroidy
+   ══════════════════════════════════════════════ */
+.photos-left {
+  position: absolute;
+  left: clamp(8px, 4vw, 60px);
+  top: 30px;
+  z-index: 3;
+  width: 230px;
+}
+
+/* ── Duża karta (iOS Files style) ── */
+.big-card {
+  position: relative;
+  width: 190px;
+  height: 230px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.big-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.big-card:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Etykieta filename wewnątrz karty */
+.card-label {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.55);
+  pointer-events: none;
+}
+
+/* ── Trzy małe polaroidy pod dużą kartą ── */
+.small-polaroids {
+  position: relative;
+  width: 230px;
+  height: 130px;
+  margin-top: 10px;
+}
+
+.spol {
+  position: absolute;
+  background: #fff;
+  padding: 4px 4px 22px;
+  box-shadow: var(--shadow);
+  border-radius: 2px;
+  overflow: visible;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.spol img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1px;
+}
+
+.spol:hover {
+  transform: scale(1.07) rotate(0deg) !important;
+  box-shadow: var(--shadow-hover);
+  z-index: 10;
+}
+
+.spol-label {
+  font-size: 0.52rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  margin-top: 3px;
+  text-align: center;
+}
+
+/* Pozycje 3 polaroidów */
+.spol-1 {
+  width: 82px; height: 100px;
+  left: 0; top: 0;
+  transform: rotate(-4deg);
+  z-index: 2;
+}
+.spol-2 {
+  width: 90px; height: 70px;
+  left: 60px; top: 25px;
+  transform: rotate(3deg);
+  z-index: 1;
+}
+.spol-3 {
+  width: 82px; height: 85px;
+  left: 115px; top: 5px;
+  transform: rotate(-2deg);
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════════
+   PRAWA STRONA — 2 duże karty iOS Files nachodz. na siebie
+   ══════════════════════════════════════════════ */
+.photos-right {
+  position: absolute;
+  right: clamp(8px, 4vw, 60px);
+  top: 20px;
+  z-index: 3;
+  width: 220px;
+}
+
+/* Kontener nakładający dwie karty pionowo */
+.ios-stack {
+  position: relative;
+  width: 220px;
+  height: 420px;
+}
+
+/* Wspólny styl karty iOS Files */
+.ios-card {
+  position: absolute;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.ios-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ios-card:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-hover);
+  z-index: 10;
+}
+
+/* Karta górna: mniejsza, landscape, lekko nachodzi na dolną */
+.ios-card-top {
+  width: 180px;
+  height: 150px;
+  top: 0;
+  left: 20px;
+  z-index: 2;
+}
+
+/* Karta dolna: większa, portrait, wysuwa się spod górnej */
+.ios-card-bottom {
+  width: 205px;
+  height: 290px;
+  top: 125px;
+  left: 0;
+  z-index: 1;
+}
+
+/* ============================================================
+   SECTION 2 — OFFER
+   ============================================================ */
+
+.offer-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 40px 60px;
+}
+
+.offer-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  max-width: 960px;
+  width: 100%;
+  align-items: center;
+}
+
+/* ── Siatka usług z spinaczami ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+  transition: transform var(--ease);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card:hover .service-tile {
+  box-shadow: var(--shadow-hover);
+}
+
+/* Spinacz CSS */
+.clip {
+  width: 38px;
+  height: 48px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+
+.service-tile {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 16px 14px 13px;
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: box-shadow var(--ease);
+}
+
+.service-num {
+  font-size: 0.60rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: 0.14em;
+  align-self: flex-start;
+}
+
+.service-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── Notes card ── */
+.notes-card {
+  background: #fef9ec;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.notes-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+
+.notes-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--note-green);
+}
+
+.notes-icons {
+  display: flex;
+  gap: 10px;
+  color: var(--ink-soft);
+}
+
+.notes-icons svg { width: 17px; height: 17px; cursor: default; }
+
+.notes-body {
+  padding: 24px 22px 30px;
+}
+
+.notes-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.notes-title .italic-hi {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  background: var(--yellow-hi);
+  padding: 0 5px;
+  border-radius: 3px;
+}
+
+.notes-desc {
+  font-size: 0.88rem;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* ============================================================
+   SECTION 3 — CONTACT
+   ============================================================ */
+
+.contact-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 40px 60px;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 960px;
+  width: 100%;
+  align-items: center;
+}
+
+/* ── Formularz ── */
+.contact-card {
+  background: #fef9ec;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.form-wrap {
+  padding: 22px 22px 26px;
+}
+
+.form-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.015em;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.form-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--yellow-hi);
+  flex-shrink: 0;
+}
+
+.form-group {
+  margin-bottom: 11px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.07em;
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--cream-card);
+  border: 1.5px solid transparent;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 0.84rem;
+  color: var(--ink);
+  outline: none;
+  transition: var(--ease);
+  -webkit-appearance: none;
+}
+
+.form-group textarea {
+  border-radius: 12px;
+  resize: none;
+  height: 78px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--yellow-hi);
+  background: rgba(255,255,255,0.9);
+}
+
+.btn-send {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  background: var(--beige-btn);
+  border: none;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: var(--ease);
+}
+
+.btn-send:hover {
+  background: var(--yellow-hi);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 200, 66, 0.35);
+}
+
+/* ── Zdjęcie po prawej ── */
+.contact-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-photo-frame {
+  width: 230px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+  position: relative;
+}
+
+.contact-photo-frame img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.contact-photo-name {
+  font-size: 0.60rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(70px);
+  background: var(--ink);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 100px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s var(--ease);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 880px) {
+  .offer-layout,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .photos-left,
+  .photos-right {
+    display: none;
+  }
+
+  .hero-body {
+    padding: 30px 20px 50px;
+  }
+
+  .hero-body {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .section-nav a {
+    padding: 6px 14px;
+    font-size: 0.74rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #d8eaf5; }
+::-webkit-scrollbar-thumb { background: #8fb5d4; border-radius: 100px; }
